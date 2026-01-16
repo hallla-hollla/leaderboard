@@ -37,6 +37,12 @@
   </div>
 </div>
 
+<!-- LAST SYNC -->
+<div class="last-sync" id="lastSync">
+  <span class="sync-icon">⟳</span>
+  <span class="sync-text">Last sync: --:--</span>
+</div>
+
 <!-- =========================
      LEADERBOARD
 ========================= -->
@@ -70,7 +76,22 @@ function loadData() {
         }));
 
       render(users);
+      updateLastSync(); // ✅ 마지막 동기화 시간 갱신
     });
+}
+
+function updateLastSync() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2, "0");
+  const mm = String(now.getMinutes()).padStart(2, "0");
+
+  const el = document.getElementById("lastSync");
+  if (!el) return;
+
+  el.innerHTML = `
+    <span class="sync-icon">⟳</span>
+    <span class="sync-text">Last sync: ${hh}:${mm}</span>
+  `;
 }
 
 /* =========================
@@ -133,3 +154,4 @@ setInterval(loadData, 60000); // 1분 자동 새로고침
 
 </body>
 </html>
+
