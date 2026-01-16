@@ -1,112 +1,81 @@
 /* =========================
-   MOVING TOP TICKER
-========================= */
-.ticker {
-  width: calc(100% + 48px);
-  margin-left: -24px;
-  margin-right: -24px;
-  overflow: hidden;
-  background: #000;
-  height: 40px;
-}
-
-@media (max-width: 480px) {
-  .ticker {
-    width: calc(100% + 32px);
-    margin-left: -16px;
-    margin-right: -16px;
-  }
-}
-
-.ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker-scroll 18s linear infinite;
-  will-change: transform;
-}
-
-.ticker-track img {
-  height: 40px;
-  width: auto;
-  display: block;
-  image-rendering: -webkit-optimize-contrast;
-}
-
-/* seamless */
-@keyframes ticker-scroll {
-  from { transform: translate3d(0,0,0); }
-  to   { transform: translate3d(-50%,0,0); }
-}
-
-/* =========================
-   STEPN FONT (iOS SAFE)
+   FONT (MOBILE SAFE)
+   ⚠️ 반드시 woff2 사용
 ========================= */
 @font-face {
-  font-family: "PP Neue Machina";
-  src: url("./fonts/PPNeueMachina-InktrapBoldItalic.otf") format("opentype");
+  font-family: "Machina";
+  src: url("./fonts/PPNeueMachina.woff2") format("woff2");
   font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "PP Neue Machina";
-  src: url("./fonts/PPNeueMachina-InktrapRegularItalic.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
+  font-style: italic;
 }
 
 /* =========================
    BASE
 ========================= */
 body {
-  font-family: "PP Neue Machina", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Machina", -apple-system, BlinkMacSystemFont, sans-serif;
   background: radial-gradient(circle at top, #1f1f1f 0%, #121212 60%);
-  color: #fff;
+  color: #ffffff;
   margin: 0;
-  padding: 24px;
+  padding: 16px;
 }
 
-@media (max-width: 480px) {
-  body { padding: 16px; }
+/* =========================
+   MOVING TICKER (SEAMLESS)
+========================= */
+.ticker {
+  width: 100vw;
+  overflow: hidden;
+  background: #000;
+  height: 40px;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 16s linear infinite;
+}
+
+.ticker-track img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* iOS 안정용 */
+@keyframes ticker-scroll {
+  from {
+    transform: translate3d(0,0,0);
+  }
+  to {
+    transform: translate3d(-50%,0,0);
+  }
 }
 
 /* =========================
    HEADER (PARALLELOGRAM)
+   🔥 모바일 대응: clip-path
 ========================= */
 .header-wrap {
   display: flex;
   justify-content: center;
-  margin: 48px 0;
+  margin: 40px 0;
 }
 
 .header-plate {
   background: #8eff36;
-  padding: 22px 48px;
-  transform: skew(-12deg);
-  min-width: 260px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.5);
-}
-
-@media (max-width: 480px) {
-  .header-plate {
-    padding: 16px 32px;
-    transform: skew(-10deg);
-  }
+  padding: 20px 48px;
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
 }
 
 .header-title {
-  transform: skew(12deg);
+  font-size: clamp(28px, 8vw, 48px);
   font-weight: 800;
-  font-size: 48px;
+  font-style: italic;
   letter-spacing: -0.04em;
   color: #000;
   white-space: nowrap;
-}
-
-@media (max-width: 480px) {
-  .header-title {
-    font-size: 34px;
-  }
 }
 
 /* =========================
@@ -124,18 +93,18 @@ body {
 
 .card h2 {
   margin: 0 0 16px;
-  font-size: 18px;
-  font-weight: 800;
-  color: #8eff36;
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #8EFF36;
+  font-size: 18px;
 }
 
 .card h2 span {
   font-style: italic;
 }
 
+/* 심볼 비율 유지 */
 .icon {
   width: 18px;
   height: auto;
@@ -150,20 +119,11 @@ body {
   margin-bottom: 12px;
 }
 
-.row.top-1 {
-  background: linear-gradient(90deg, rgba(142,255,54,0.22), transparent);
-}
-.row.top-2 {
-  background: linear-gradient(90deg, rgba(142,255,54,0.14), transparent);
-}
-.row.top-3 {
-  background: linear-gradient(90deg, rgba(142,255,54,0.08), transparent);
-}
-
 .row-header {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
+  font-style: italic;
   margin-bottom: 6px;
   color: #ededed;
 }
@@ -171,23 +131,8 @@ body {
 .rank {
   display: inline-block;
   width: 22px;
-  color: #8eff36;
+  color: #8EFF36;
   font-weight: 800;
-}
-
-/* =========================
-   BADGE
-========================= */
-.badge {
-  margin-left: 8px;
-  background: #8eff36;
-  color: #111;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  padding: 3px 10px;
-  border-radius: 2px;
-  box-shadow: 0 0 14px rgba(142,255,54,0.7);
 }
 
 /* =========================
@@ -204,6 +149,7 @@ body {
 .bar {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #8eff36, #8effff);
+  background: linear-gradient(90deg, #8EFF36, #8EFFFF);
   box-shadow: 0 0 16px rgba(142,255,54,0.8);
+  transition: width 0.4s ease;
 }
