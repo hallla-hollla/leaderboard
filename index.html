@@ -5,8 +5,8 @@
   <title>STEP'N Leaderboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="./stepn.css?v=4">
+  <!-- CSS (캐시 방지) -->
+  <link rel="stylesheet" href="./stepn.css?v=6">
 </head>
 
 <body>
@@ -16,12 +16,11 @@
 ========================= -->
 <div class="ticker">
   <div class="ticker-track">
-    <!-- 반드시 2배 이상 반복 -->
+    <!-- 2배 이상 반복 (seamless) -->
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
-
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
@@ -100,13 +99,23 @@ function render(users) {
     group.forEach((u, i) => {
       const rate = Math.min((u.progress / goal) * 100, 100);
 
+      /* ✅ COMPLETED 조건 */
+      const completedBadge =
+        rate >= 100
+          ? `<span class="badge">COMPLETED</span>`
+          : "";
+
       card.innerHTML += `
         <div class="row">
           <div class="row-header">
-            <div>
-              <span class="rank">${i + 1}</span>${u.name}
+            <div class="row-left">
+              <span class="rank">${i + 1}</span>
+              ${u.name}
+              ${completedBadge}
             </div>
-            <div>${u.progress.toFixed(1)} km (${rate.toFixed(1)}%)</div>
+            <div class="row-right">
+              ${u.progress.toFixed(1)} km (${rate.toFixed(1)}%)
+            </div>
           </div>
           <div class="bar-bg">
             <div class="bar" style="width:${rate}%"></div>
