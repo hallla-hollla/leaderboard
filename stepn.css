@@ -1,5 +1,5 @@
 /* =========================
-   MOVING TOP TICKER (SEAMLESS)
+   MOVING TOP TICKER
 ========================= */
 .ticker {
   width: 100%;
@@ -11,32 +11,24 @@
 .ticker-track {
   display: flex;
   width: max-content;
-  will-change: transform;
   animation: ticker-scroll 18s linear infinite;
+  will-change: transform;
 }
 
 .ticker-track img {
   height: 40px;
   width: auto;
   display: block;
-
-  /* 흐림 방지 */
-  image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
 
-/* 🔥 핵심: 트랙의 정확히 절반만 이동 */
 @keyframes ticker-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* =========================
-   STEPN FONT
+   FONT
 ========================= */
 @font-face {
   font-family: "PP Neue Machina";
@@ -56,43 +48,37 @@
    BASE
 ========================= */
 body {
-  font-family: "PP Neue Machina", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "PP Neue Machina", sans-serif;
   background: radial-gradient(circle at top, #1f1f1f 0%, #121212 60%);
-  color: #ffffff;
+  color: #fff;
   margin: 0;
   padding: 24px;
 }
 
 /* =========================
-   STEPN PARALLELOGRAM HEADER
+   HEADER (PARALLELOGRAM)
 ========================= */
 .header-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 48px;
-  margin-bottom: 48px;
+  margin: 48px 0;
 }
 
 .header-plate {
-  background: #8EFF36;
+  background: #8eff36;
   padding: 22px 48px;
   transform: skew(-12deg);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(0,0,0,0.2);
 }
 
 .header-title {
-  transform: skew(12deg); /* 🔥 글자만 다시 펴기 */
-  font-family: "PP Neue Machina";
+  transform: skew(12deg);
   font-weight: 800;
   font-style: italic;
   font-size: 48px;
   letter-spacing: -0.04em;
-  color: #000000;
+  color: #000;
   white-space: nowrap;
 }
-
 
 /* =========================
    CARD
@@ -102,32 +88,24 @@ body {
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 28px;
-  box-shadow:
-    0 0 0 1px rgba(142,255,54,0.08),
-    0 18px 40px rgba(0,0,0,0.7);
+  box-shadow: 0 18px 40px rgba(0,0,0,.7);
 }
 
 .card h2 {
-  margin: 0 0 16px;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #8EFF36;
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #8eff36;
+  font-size: 18px;
 }
 
-/* 텍스트만 italic */
 .card h2 span {
   font-style: italic;
 }
 
-/* 심볼은 원본 비율 유지 */
 .icon {
   width: 18px;
   height: auto;
-  display: block;
 }
 
 /* =========================
@@ -139,45 +117,34 @@ body {
   margin-bottom: 12px;
 }
 
-.row.top-1 {
-  background: linear-gradient(90deg, rgba(142,255,54,0.22), transparent);
-}
-.row.top-2 {
-  background: linear-gradient(90deg, rgba(142,255,54,0.14), transparent);
-}
-.row.top-3 {
-  background: linear-gradient(90deg, rgba(142,255,54,0.08), transparent);
-}
+.row.top-1 { background: rgba(142,255,54,.22); }
+.row.top-2 { background: rgba(142,255,54,.14); }
+.row.top-3 { background: rgba(142,255,54,.08); }
 
 .row-header {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
   font-style: italic;
-  margin-bottom: 6px;
-  color: #ededed;
 }
 
 .rank {
-  display: inline-block;
   width: 22px;
-  color: #8EFF36;
+  display: inline-block;
+  color: #8eff36;
   font-weight: 800;
 }
 
 /* =========================
-   COMPLETED BADGE
+   BADGE
 ========================= */
 .badge {
   margin-left: 8px;
-  background: #8EFF36;
+  background: #8eff36;
   color: #111;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.14em;
   padding: 3px 10px;
-  border-radius: 2px;
-  box-shadow: 0 0 14px rgba(142,255,54,0.7);
 }
 
 /* =========================
@@ -188,13 +155,33 @@ body {
   height: 8px;
   background: #2a2a2a;
   border-radius: 999px;
-  overflow: hidden;
 }
 
 .bar {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #8EFF36, #8EFFFF);
-  box-shadow: 0 0 16px rgba(142,255,54,0.8);
-  transition: width 0.4s ease;
+  background: linear-gradient(90deg, #8eff36, #8effff);
+  transition: width .4s ease;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .header-title { font-size: 32px; }
+  .header-plate { padding: 16px 32px; }
+}
+
+@media (max-width: 480px) {
+  body { padding: 16px; }
+
+  .header-wrap { margin: 28px 0; }
+  .header-plate {
+    padding: 12px 24px;
+    transform: skew(-10deg);
+  }
+  .header-title {
+    transform: skew(10deg);
+    font-size: 22px;
+  }
 }
