@@ -170,3 +170,31 @@ body {
   box-shadow: 0 0 16px rgba(142,255,54,0.8);
   transition: width 0.4s ease;
 }
+
+/* =========================
+   LAST SYNC INDICATOR
+========================= */
+.last-sync {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+
+  font-size: 11px;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: #9AA09C;
+}
+
+.sync-icon {
+  font-size: 12px;
+  color: #8EFF36;
+  animation: sync-rotate 6s linear infinite;
+}
+
+/* subtle rotation */
+@keyframes sync-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
