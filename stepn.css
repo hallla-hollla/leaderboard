@@ -1,12 +1,13 @@
 /* =========================
-   FONT (MOBILE SAFE)
-   ⚠️ 반드시 woff2 사용
+   FONT (GITHUB + iOS SAFE)
 ========================= */
 @font-face {
   font-family: "Machina";
-  src: url("./fonts/PPNeueMachina.woff2") format("woff2");
+  src:
+    url("./fonts/PPNeueMachina.woff2") format("woff2"),
+    url("./fonts/PPNeueMachina.woff") format("woff");
   font-weight: 800;
-  font-style: italic;
+  font-style: normal;
 }
 
 /* =========================
@@ -21,7 +22,7 @@ body {
 }
 
 /* =========================
-   MOVING TICKER (SEAMLESS)
+   MOVING TOP TICKER
 ========================= */
 .ticker {
   width: 100vw;
@@ -42,19 +43,13 @@ body {
   display: block;
 }
 
-/* iOS 안정용 */
 @keyframes ticker-scroll {
-  from {
-    transform: translate3d(0,0,0);
-  }
-  to {
-    transform: translate3d(-50%,0,0);
-  }
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
 }
 
 /* =========================
    HEADER (PARALLELOGRAM)
-   🔥 모바일 대응: clip-path
 ========================= */
 .header-wrap {
   display: flex;
@@ -72,7 +67,6 @@ body {
 .header-title {
   font-size: clamp(28px, 8vw, 48px);
   font-weight: 800;
-  font-style: italic;
   letter-spacing: -0.04em;
   color: #000;
   white-space: nowrap;
@@ -104,7 +98,6 @@ body {
   font-style: italic;
 }
 
-/* 심볼 비율 유지 */
 .icon {
   width: 18px;
   height: auto;
@@ -122,10 +115,20 @@ body {
 .row-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 13px;
-  font-style: italic;
   margin-bottom: 6px;
   color: #ededed;
+}
+
+.row-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.row-right {
+  white-space: nowrap;
 }
 
 .rank {
@@ -133,6 +136,20 @@ body {
   width: 22px;
   color: #8EFF36;
   font-weight: 800;
+}
+
+/* =========================
+   COMPLETED BADGE (복구됨)
+========================= */
+.badge {
+  background: #8EFF36;
+  color: #111;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  padding: 3px 8px;
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(142,255,54,0.7);
 }
 
 /* =========================
