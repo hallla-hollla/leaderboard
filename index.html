@@ -5,8 +5,8 @@
   <title>STEP'N Leaderboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- CSS (캐시 방지) -->
-  <link rel="stylesheet" href="./stepn.css?v=6">
+  <!-- CSS (캐시 방지용 쿼리스트링) -->
+  <link rel="stylesheet" href="./stepn.css?v=final">
 </head>
 
 <body>
@@ -16,7 +16,7 @@
 ========================= -->
 <div class="ticker">
   <div class="ticker-track">
-    <!-- 2배 이상 반복 (seamless) -->
+    <!-- seamless 위해 충분히 반복 -->
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
     <img src="./images/ticker.png" alt="">
@@ -98,12 +98,8 @@ function render(users) {
 
     group.forEach((u, i) => {
       const rate = Math.min((u.progress / goal) * 100, 100);
-
-      /* ✅ COMPLETED 조건 */
-      const completedBadge =
-        rate >= 100
-          ? `<span class="badge">COMPLETED</span>`
-          : "";
+      const completed =
+        rate >= 100 ? `<span class="badge">COMPLETED</span>` : "";
 
       card.innerHTML += `
         <div class="row">
@@ -111,7 +107,7 @@ function render(users) {
             <div class="row-left">
               <span class="rank">${i + 1}</span>
               ${u.name}
-              ${completedBadge}
+              ${completed}
             </div>
             <div class="row-right">
               ${u.progress.toFixed(1)} km (${rate.toFixed(1)}%)
