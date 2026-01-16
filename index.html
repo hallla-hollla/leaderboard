@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>STEP'N Leaderboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- STEPN STYLE -->
+  <link rel="stylesheet" href="./stepn.css">
+</head>
+
+<body>
+<!-- MOVING BANNER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+    <img src="./images/ticker.png" alt="">
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header-wrap">
+  <div class="header-plate">
+    <div class="header-title">LEADERBOARD</div>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="leaderboard"></div>
+
+<script>
+/* =========================
+   CONFIG
+========================= */
+const API_KEY = "AIzaSyD_V3tdvx1alGwahTDgDLyUN2JEviAVoGI";
+const SHEET_ID = "10kNJP47pryP1tQPUiqbMwOKuNKfF-MThv5q9yNoC0x8";
+const SHEET_RANGE = "마일리지!A9:D500";
+
+/* =========================
+   DATA LOAD
+========================= */
+function loadData() {
+  fetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_RANGE)}?key=${API_KEY}`
+  )
+    .then(res => res.json())
+    .then(data => {
+      const rows = data.values || [];
+
+      const users = rows
+        .filter(r => r[1] && r[2])
+        .map(r => ({
+          name: r[1],
+          target: Number(r[2]),
+          progress: Number(r[3]) || 0
+        }));
+
+      render(users);
+    });
+}
+
+/* =========================
+   RENDER
+========================= */
+function render(users) {
+  const container = document.getElementById("leaderboard");
+  container.innerHTML = "";
+
+  [200, 100, 50].forEach(goal => {
+    const group = users
+      .filter(u => u.target === goal)
+      .sort((a, b) => b.progress - a.progress);
+
+    if (!group.length) return;
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <h2>
+        <img src="./images/symbol.png" class="icon" alt="symbol">
+        <span>${goal} KM</span>
+      </h2>
+    `;
+
+    group.forEach((u, i) => {
+      const rate = Math.min((u.progress / goal) * 100, 100);
+      const completed = rate >= 100
+        ? `<span class="badge">COMPLETED</span>`
+        : "";
+
+      const rankClass =
+        i === 0 ? "top-1" :
+        i === 1 ? "top-2" :
+        i === 2 ? "top-3" : "";
+
+      card.innerHTML += `
+        <div class="row ${rankClass}">
+          <div class="row-header">
+            <div>
+              <span class="rank">${i + 1}</span>${u.name}
+              ${completed}
+            </div>
+            <div>${u.progress.toFixed(1)} km (${rate.toFixed(1)}%)</div>
+          </div>
+          <div class="bar-bg">
+            <div class="bar" style="width:${rate}%"></div>
+          </div>
+        </div>
+      `;
+    });
+
+    container.appendChild(card);
+  });
+}
+
+/* =========================
+   INIT
+========================= */
+loadData();
+setInterval(loadData, 60000); // 1분 자동 새로고침
+</script>
+
+</body>
+</html>
