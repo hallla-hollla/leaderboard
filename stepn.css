@@ -1,13 +1,11 @@
 /* =========================
-   FONT (GITHUB + iOS SAFE)
+   FONT (네가 올린 파일 기준)
 ========================= */
 @font-face {
   font-family: "Machina";
-  src:
-    url("./fonts/PPNeueMachina.woff2") format("woff2"),
-    url("./fonts/PPNeueMachina.woff") format("woff");
+  src: url("./fonts/PPNeueMachina-InktrapBoldItalic.woff") format("woff");
   font-weight: 800;
-  font-style: normal;
+  font-style: italic; /* 🔥 핵심 */
 }
 
 /* =========================
@@ -22,13 +20,17 @@ body {
 }
 
 /* =========================
-   MOVING TOP TICKER
+   MOVING TOP TICKER (모바일 여백 완전 제거)
 ========================= */
 .ticker {
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+
   width: 100vw;
+  height: 40px;
   overflow: hidden;
   background: #000;
-  height: 40px;
 }
 
 .ticker-track {
@@ -49,7 +51,7 @@ body {
 }
 
 /* =========================
-   HEADER (PARALLELOGRAM)
+   HEADER (평행사변형)
 ========================= */
 .header-wrap {
   display: flex;
@@ -67,6 +69,7 @@ body {
 .header-title {
   font-size: clamp(28px, 8vw, 48px);
   font-weight: 800;
+  font-style: italic; /* 🔥 진짜 Italic */
   letter-spacing: -0.04em;
   color: #000;
   white-space: nowrap;
@@ -117,6 +120,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
+  font-style: italic;
   margin-bottom: 6px;
   color: #ededed;
 }
@@ -127,10 +131,6 @@ body {
   gap: 6px;
 }
 
-.row-right {
-  white-space: nowrap;
-}
-
 .rank {
   display: inline-block;
   width: 22px;
@@ -139,7 +139,7 @@ body {
 }
 
 /* =========================
-   COMPLETED BADGE (복구됨)
+   COMPLETED BADGE
 ========================= */
 .badge {
   background: #8EFF36;
